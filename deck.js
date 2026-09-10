@@ -1,5 +1,6 @@
 const cards = document.querySelectorAll('.card');
 const dots = document.querySelectorAll('.dot');
+const continueLink = document.getElementById('continueLink');
 let currentIndex = 0;
 let startX = 0;
 let endX = 0;
@@ -17,6 +18,12 @@ function showCard(index) {
     dot.classList.toggle('active', i === index);
   });
 
+  if (index === cards.length - 1) {
+    continueLink.classList.add('visible');
+  } else {
+    continueLink.classList.remove('visible');
+  }
+
   currentIndex = index;
 }
 
@@ -32,7 +39,6 @@ function showPrevCard() {
   }
 }
 
-// Tap a card to flip it
 cards.forEach((card) => {
   card.addEventListener('click', () => {
     card.classList.toggle('is-flipped');
@@ -50,7 +56,6 @@ cards.forEach((card) => {
   });
 });
 
-// Swipe detection on the whole stage
 const stage = document.getElementById('cardStage');
 
 stage.addEventListener('touchstart', (e) => {
@@ -70,10 +75,8 @@ stage.addEventListener('touchend', (e) => {
   }
 });
 
-// Allow clicking dots directly too
 dots.forEach((dot, i) => {
   dot.addEventListener('click', () => showCard(i));
 });
 
-// Initialize
 showCard(0);
